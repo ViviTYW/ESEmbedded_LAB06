@@ -6,7 +6,7 @@ void op_sysclk(unsigned int div);
 
 int main(void)
 {
-	op_sysclk(1);
+	op_sysclk(4);
 	blink(LED_BLUE);
 }
 
@@ -35,15 +35,18 @@ void op_sysclk(unsigned int div)
 
 	SET_BIT(RCC_BASE + RCC_AHB1ENR_OFFSET, GPIO_EN_BIT(GPIO_PORTC));
 
-	//GPIO MODER
-	????????
+//GPIO MODER
+SET_BIT(GPIO_BASE(GPIO_PORTC) + GPIOx_MODER_OFFSET, MODERy_1_BIT(9));
+CLEAR_BIT(GPIO_BASE(GPIO_PORTC) + GPIOx_MODER_OFFSET, MODERy_0_BIT(9));
 
 	//Output push-pull
-	????????
+CLEAR_BIT(GPIO_BASE(GPIO_PORTC) + GPIOx_OTYPER_OFFSET, OTy_BIT(9));	
 
 	//OSPEEDR9 = 11 => Very high speed
-	????????
+	CLEAR_BIT(GPIO_BASE(GPIO_PORTC) + GPIOx_OSPEEDR_OFFSET, OSPEEDRy_1_BIT(9));
+	CLEAR_BIT(GPIO_BASE(GPIO_PORTC) + GPIOx_OSPEEDR_OFFSET, OSPEEDRy_0_BIT(9));
 
 	//PUPDR9 = 00 => No pull-up, pull-down
-	????????
+	CLEAR_BIT(GPIO_BASE(GPIO_PORTD) + GPIOx_PUPDR_OFFSET, PUPDRy_1_BIT(9));
+	CLEAR_BIT(GPIO_BASE(GPIO_PORTD) + GPIOx_PUPDR_OFFSET, PUPDRy_0_BIT(9));
 }
